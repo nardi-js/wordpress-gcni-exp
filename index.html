@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCNI - Global Cahaya Nurbuwwah Insani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+        /* Custom colors based on the design document */
+        .bg-gcni-teal { background-color: #14B8A6; }
+        .text-gcni-teal { color: #14B8A6; }
+        .border-gcni-teal { border-color: #14B8A6; }
+        .bg-gcni-gold { background-color: #FBBF24; }
+        .text-gcni-gold { color: #FBBF24; }
+        .ring-gcni-gold { ring-color: #FBBF24; }
+
+        .page-content {
+            display: none; /* Initially hide all pages */
+        }
+        /* Custom transition for donation steps */
+        .donation-step {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Enhanced Box Styling for Consistency */
+        .consistent-box {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .consistent-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .box-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+            border-radius: inherit;
+        }
+        
+        /* Program Card Enhanced Styling */
+        .program-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .program-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .program-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .program-card:hover .program-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .program-card-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Image Error Handling */
+        img {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #14B8A6 0%, #0891b2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-2" onclick="showPage('page-beranda')">
+                        <div class="p-2 rounded-full bg-gcni-teal text-white">
+                            <i data-lucide="gem"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-800">GCNI</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#" onclick="showPage('page-beranda')" class="nav-link text-gray-600 hover:text-gcni-teal font-medium">Beranda</a>
+                    <a href="#" onclick="showPage('page-tentang')" class="nav-link text-gray-600 hover:text-gcni-teal font-medium">Tentang Kami</a>
+                    <a href="#" onclick="showPage('page-program')" class="nav-link text-gray-600 hover:text-gcni-teal font-medium">Unit & Program</a>
+                    <a href="#" onclick="showPage('page-berita')" class="nav-link text-gray-600 hover:text-gcni-teal font-medium">Berita</a>
+                    <a href="#" onclick="showPage('page-kontak')" class="nav-link text-gray-600 hover:text-gcni-teal font-medium">Kontak</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" onclick="showPage('page-donasi')" class="bg-gcni-gold text-white font-semibold px-4 py-2 rounded-lg shadow-sm hover:bg-amber-500 transition-colors">Donasi</a>
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-gray-600 hover:text-gcni-teal focus:outline-none">
+                            <i data-lucide="menu" class="h-6 w-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <a href="#" onclick="showPage('page-beranda')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Beranda</a>
+            <a href="#" onclick="showPage('page-tentang')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Tentang Kami</a>
+            <a href="#" onclick="showPage('page-program')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Unit & Program</a>
+            <a href="#" onclick="showPage('page-donasi')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Donasi</a>
+            <a href="#" onclick="showPage('page-berita')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Berita</a>
+            <a href="#" onclick="showPage('page-kontak')" class="block py-3 px-4 text-sm text-gray-600 hover:bg-gray-100">Kontak</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE: BERANDA / HOME -->
+        <div id="page-beranda" class="page-content">
+            <!-- Home Section -->
+            <section id="home" class="relative bg-gradient-to-br from-white to-gray-50 pt-20 pb-20">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-20">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[600px]">
+                        <div class="text-center lg:text-left space-y-8">
+                            <h1 class="font-amiri text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 leading-tight">
+                                Global Cahaya <br> 
+                                <span class="text-gcni-teal bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent">Nurbuwwah Insani</span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
+                                Melahirkan generasi berilmu, berakhlak mulia, berjiwa Qur'ani, serta berdaya saing global melalui pendidikan, pemberdayaan, dan pelayanan umat.
+                            </p>
+                            <div class="pt-6">
+                                <a href="#" onclick="showPage('page-tentang')" class="inline-flex items-center bg-gcni-teal text-white font-semibold px-10 py-5 rounded-xl shadow-lg hover:bg-teal-600 transition-all transform hover:scale-105 hover:shadow-xl text-lg">
+                                    <span>Selengkapnya</span>
+                                    <i data-lucide="arrow-right" class="ml-3 w-6 h-6"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="relative px-4 lg:px-8">
+                            <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                                <!-- Image Slider with fallback -->
+                                <div id="slider-container" class="w-full h-full">
+                                    <div class="slider-image absolute inset-0 w-full h-full transition-opacity duration-1000 opacity-100">
+                                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop" 
+                                             class="w-full h-full object-cover" 
+                                             alt="Kegiatan Siswa IEBS"
+                                             onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'school\' class=\'w-16 h-16\'></i></div>'">
+                                    </div>
+                                    <div class="slider-image absolute inset-0 w-full h-full transition-opacity duration-1000 opacity-0">
+                                        <img src="https://images.unsplash.com/photo-1589233265339-381c0453239a?q=80&w=800&auto=format&fit=crop" 
+                                             class="w-full h-full object-cover" 
+                                             alt="Santri Hafiz Qur'an"
+                                             onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'book-open\' class=\'w-16 h-16\'></i></div>'">
+                                    </div>
+                                    <div class="slider-image absolute inset-0 w-full h-full transition-opacity duration-1000 opacity-0">
+                                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=800&auto=format&fit=crop" 
+                                             class="w-full h-full object-cover" 
+                                             alt="Villa Islami GCNI"
+                                             onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'home\' class=\'w-16 h-16\'></i></div>'">
+                                    </div>
+                                </div>
+                                <!-- Slider Indicators -->
+                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                                    <button class="slider-dot w-3 h-3 rounded-full bg-white opacity-70 transition-opacity" onclick="goToSlide(0)"></button>
+                                    <button class="slider-dot w-3 h-3 rounded-full bg-white opacity-40 transition-opacity" onclick="goToSlide(1)"></button>
+                                    <button class="slider-dot w-3 h-3 rounded-full bg-white opacity-40 transition-opacity" onclick="goToSlide(2)"></button>
+                                </div>
+                            </div>
+                            <!-- Decorative Elements -->
+                            <div class="absolute -top-6 -right-6 w-32 h-32 bg-gcni-teal opacity-10 rounded-full blur-2xl"></div>
+                            <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-gcni-gold opacity-15 rounded-full blur-xl"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Vision & Mission Section -->
+            <section id="vision-mission-summary" class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Visi & Misi</h2>
+                        <p class="text-gray-600 text-lg max-w-2xl mx-auto">Landasan gerak dan cita-cita Yayasan GCNI dalam melayani umat.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="consistent-box p-8 text-center">
+                            <div class="box-content">
+                                <div class="icon-wrapper bg-gradient-to-br from-teal-500 to-cyan-600">
+                                    <i data-lucide="eye" class="w-10 h-10 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Visi</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Menjadi yayasan Islam yang melahirkan generasi berilmu, berakhlak mulia, berjiwa Qur'ani, serta berdaya saing global melalui pendidikan, pemberdayaan, dan pelayanan umat.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="consistent-box p-8 text-center">
+                            <div class="box-content">
+                                <div class="icon-wrapper bg-gradient-to-br from-amber-500 to-orange-500">
+                                    <i data-lucide="flag" class="w-10 h-10 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Misi</h3>
+                                <div class="text-gray-600 leading-relaxed space-y-2">
+                                    <p>• Menyelenggarakan pendidikan Islam terpadu</p>
+                                    <p>• Membina generasi penghafal Al-Qur'an</p>
+                                    <p>• Memberikan beasiswa hingga luar negeri</p>
+                                    <p>• Mengelola unit usaha Islami</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Programs Summary Section -->
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                     <div class="text-center mb-12">
+                         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Program Unggulan</h2>
+                         <p class="text-gray-600 text-lg max-w-2xl mx-auto">Layanan kami untuk membangun generasi Rabbani yang berakhlak mulia.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop" 
+                                     alt="IEBS School"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'school\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">IEBS</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Islamic Enterpreneurship Boarding School (SMP & SMA) dengan kurikulum terpadu: Islam, IT, dan Enterpreneurship.
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Pelajari Lebih Lanjut 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1609861614828-912b70f64483?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Tahfizh Qur'an"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'book-open\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Tahfizh Qur'an</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Program fasilitas penuh untuk para santri penghafal Al-Qur'an dengan bimbingan intensif dan pembinaan karakter.
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Pelajari Lebih Lanjut 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Villa Islami"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'home\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Villa Islami</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Unit usaha villa bernuansa Islami di Purwakarta untuk healing dan family gathering.
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Lihat Fasilitas 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Beasiswa Luar Negeri"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'graduation-cap\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Beasiswa LN</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Mendukung generasi muda melanjutkan pendidikan S1 ke luar negeri, khususnya di Malaysia.
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Info Pendaftaran 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                        <a href="#" onclick="showPage('page-program')" class="inline-flex items-center bg-gcni-teal text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:bg-teal-600 hover:shadow-xl transition-all">
+                            <span>Lihat Semua Program</span>
+                            <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- News Summary Section -->
+             <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-12">
+                         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Berita Terbaru</h2>
+                         <p class="text-gray-600 text-lg max-w-2xl mx-auto">Informasi dan kegiatan terkini dari GCNI untuk kemajuan umat.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="consistent-box overflow-hidden group">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                                     alt="News Image 1"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'newspaper\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="p-6 box-content">
+                                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>01 Okt 2025</span>
+                                    <span>•</span>
+                                    <span class="text-gcni-teal font-medium">Pendidikan</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-3 hover:text-gcni-teal transition-colors">
+                                    GCNI Sukses Gelar Workshop IT untuk Siswa IEBS
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                                    Workshop ini bertujuan untuk membekali siswa dengan keterampilan digital yang relevan...
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Baca Selengkapnya 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="consistent-box overflow-hidden group">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                                     alt="News Image 2"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'heart\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="p-6 box-content">
+                                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>28 Sep 2025</span>
+                                    <span>•</span>
+                                    <span class="text-gcni-teal font-medium">Sosial</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-3 hover:text-gcni-teal transition-colors">
+                                    Program Bantuan Beasiswa untuk Dhuafa
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                                    GCNI kembali memberikan bantuan beasiswa pendidikan untuk anak-anak kurang mampu...
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Baca Selengkapnya 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="consistent-box overflow-hidden group">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1514820720066-ed94bb8e4063?q=80&w=800&auto=format&fit=crop" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                                     alt="News Image 3"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'mosque\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="p-6 box-content">
+                                <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    <span>25 Sep 2025</span>
+                                    <span>•</span>
+                                    <span class="text-gcni-teal font-medium">Dakwah</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-3 hover:text-gcni-teal transition-colors">
+                                    Kajian Rutin Tahfizh Al-Qur'an
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                                    Kegiatan kajian rutin untuk para santri tahfizh yang diadakan setiap minggu...
+                                </p>
+                                <div class="mt-auto">
+                                    <span class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors">
+                                        Baca Selengkapnya 
+                                        <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="text-center mt-12">
+                        <a href="#" onclick="showPage('page-berita')" class="inline-flex items-center bg-gcni-teal text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:bg-teal-600 hover:shadow-xl transition-all">
+                            <span>Lihat Semua Berita</span>
+                            <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: TENTANG KAMI -->
+        <div id="page-tentang" class="page-content">
+             <section class="py-20 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Tentang Yayasan GCNI</h2>
+                         <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                            Mengenal lebih dekat Global Cahaya Nurbuwwah Insani, wadah pengabdian dan pelayanan umat di bidang pendidikan, sosial, dan dakwah.
+                         </p>
+                    </div>
+                    
+                    <!-- Full Visi & Misi -->
+                     <div class="grid lg:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
+                        <div class="consistent-box p-6 text-center">
+                            <div class="box-content">
+                                <div class="icon-wrapper bg-gradient-to-br from-teal-500 to-cyan-600 mb-4 w-16 h-16">
+                                    <i data-lucide="eye" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Visi</h3>
+                                <p class="text-gray-600 leading-relaxed text-base">
+                                    Menjadi yayasan Islam yang melahirkan generasi berilmu, berakhlak mulia, berjiwa Qur'ani, serta berdaya saing global melalui pendidikan, pemberdayaan, dan pelayanan umat yang profesional.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="consistent-box p-6 text-center lg:text-left">
+                            <div class="box-content">
+                                <div class="icon-wrapper bg-gradient-to-br from-amber-500 to-orange-500 mb-4 lg:mx-0 w-16 h-16">
+                                    <i data-lucide="flag" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center lg:text-left">Misi</h3>
+                                <ul class="text-gray-600 space-y-3 text-base">
+                                    <li class="flex items-start space-x-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gcni-teal mt-0.5 flex-shrink-0"></i>
+                                        <span>Menyelenggarakan pendidikan Islam terpadu yang menggabungkan ilmu agama, teknologi, dan entrepreneurship.</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gcni-teal mt-0.5 flex-shrink-0"></i>
+                                        <span>Membina generasi penghafal Al-Qur'an yang mampu menjadi teladan dalam masyarakat.</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gcni-teal mt-0.5 flex-shrink-0"></i>
+                                        <span>Memberikan beasiswa pendidikan hingga ke luar negeri untuk mencetak kader-kader unggul.</span>
+                                    </li>
+                                    <li class="flex items-start space-x-3">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-gcni-teal mt-0.5 flex-shrink-0"></i>
+                                        <span>Mengelola unit usaha Islami untuk mendukung keberlanjutan program yayasan.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sejarah & Legalitas -->
+                    <div class="max-w-4xl mx-auto space-y-8">
+                        <div class="consistent-box p-6">
+                            <div class="text-center mb-6">
+                                <div class="icon-wrapper bg-gradient-to-br from-blue-500 to-indigo-600 mb-4 w-16 h-16">
+                                    <i data-lucide="book" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800">Sejarah Singkat</h3>
+                            </div>
+                            <div class="text-gray-600 leading-relaxed text-base space-y-4">
+                                <p>
+                                    Dengan penuh rasa syukur, kami mempersembahkan keberadaan Yayasan Global Cahaya Nurbuwwah Insani (GCNI) sebagai wadah pengabdian dan pelayanan umat di bidang pendidikan, sosial, dakwah, serta pemberdayaan ekonomi berbasis nilai-nilai Islami.
+                                </p>
+                                <p>
+                                    Yayasan ini didirikan dengan komitmen untuk melahirkan generasi Qur'ani yang berilmu, berakhlak mulia, serta memiliki daya saing global melalui pendidikan holistik dan pemberdayaan yang berkelanjutan.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="consistent-box p-6">
+                            <div class="text-center mb-6">
+                                <div class="icon-wrapper bg-gradient-to-br from-purple-500 to-pink-600 mb-4 w-16 h-16">
+                                    <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800">Struktur Organisasi</h3>
+                            </div>
+                            <div class="text-gray-600 leading-relaxed text-base">
+                                <p>
+                                    Yayasan GCNI dipimpin oleh seorang Ketua Yayasan dan didukung oleh dewan pembina, pengawas, serta pengurus harian yang berdedikasi. Setiap unit program dikelola oleh direktur yang ahli di bidangnya untuk memastikan pelayanan yang profesional dan berdampak positif bagi masyarakat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: UNIT & PROGRAM -->
+        <div id="page-program" class="page-content">
+            <section class="py-24 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Unit & Program Unggulan</h2>
+                        <p class="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto">Layanan kami untuk membangun generasi Rabbani yang berakhlak mulia dan berdaya saing global.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                        <!-- Program Card 1: IEBS -->
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop" 
+                                     alt="IEBS School"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'school\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">IEBS</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Islamic Enterpreneurship Boarding School (SMP & SMA) dengan kurikulum terpadu: Islam, IT, dan Enterpreneurship.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors mt-auto">
+                                    Pelajari Lebih Lanjut 
+                                    <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Program Card 2: Tahfizh -->
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1609861614828-912b70f64483?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Tahfizh Qur'an"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'book-open\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Tahfizh Qur'an</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Program fasilitas penuh untuk para santri penghafal Al-Qur'an dengan bimbingan intensif dan pembinaan karakter.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors mt-auto">
+                                    Pelajari Lebih Lanjut 
+                                    <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Program Card 3: Villa Islami -->
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Villa Islami"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'home\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Villa Islami GCNI</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Unit usaha villa bernuansa Islami di Purwakarta untuk healing, family gathering, dengan suasana nyaman.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors mt-auto">
+                                    Lihat Fasilitas 
+                                    <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Program Card 4: Beasiswa -->
+                        <div class="program-card group">
+                            <div class="program-card-image">
+                                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Beasiswa Luar Negeri"
+                                     onerror="this.parentElement.innerHTML='<div class=\'image-placeholder w-full h-full\'><i data-lucide=\'graduation-cap\' class=\'w-16 h-16\'></i></div>'">
+                            </div>
+                            <div class="program-card-content">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">Beasiswa LN</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                                    Mendukung generasi muda untuk melanjutkan pendidikan S1 ke luar negeri, khususnya di Malaysia.
+                                </p>
+                                <a href="#" class="inline-flex items-center text-gcni-teal font-semibold hover:text-teal-700 transition-colors mt-auto">
+                                    Info Pendaftaran 
+                                    <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: BERITA -->
+        <div id="page-berita" class="page-content">
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-gray-800">Berita & Artikel Terbaru</h2>
+                        <p class="text-gray-500 mt-2">Informasi, kegiatan, dan inspirasi dari GCNI.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- News Card 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                           <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover" alt="News Image 1">
+                            <div class="p-6">
+                                <span class="text-sm text-gray-500">Pendidikan • 01 Okt 2025</span>
+                                <h3 class="text-lg font-semibold my-2">GCNI Sukses Gelar Workshop IT untuk Siswa IEBS</h3>
+                                <p class="text-gray-600 text-sm mb-4">Workshop ini bertujuan untuk membekali siswa dengan keterampilan digital yang relevan...</p>
+                                <a href="#" class="font-medium text-gcni-teal hover:underline">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                        <!-- News Card 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                           <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover" alt="News Image 2">
+                            <div class="p-6">
+                                <span class="text-sm text-gray-500">Sosial • 28 Sep 2025</span>
+                                <h3 class="text-lg font-semibold my-2">Program Donasi Santri Tahfizh Mendapat Sambutan Positif</h3>
+                                <p class="text-gray-600 text-sm mb-4">Alhamdulillah, donasi yang terkumpul akan digunakan untuk mendukung kebutuhan para santri...</p>
+                                <a href="#" class="font-medium text-gcni-teal hover:underline">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                        <!-- News Card 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover" alt="News Image 3">
+                            <div class="p-6">
+                                <span class="text-sm text-gray-500">Inspirasi • 25 Sep 2025</span>
+                                <h3 class="text-lg font-semibold my-2">Menjadi Entrepreneur Muslim: 5 Prinsip Utama</h3>
+                                <p class="text-gray-600 text-sm mb-4">Artikel ini mengupas tuntas prinsip-prinsip kewirausahaan dalam perspektif Islam...</p>
+                                <a href="#" class="font-medium text-gcni-teal hover:underline">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: DONASI -->
+        <div id="page-donasi" class="page-content">
+            <!-- Donation Step 1: Choose Amount -->
+            <section id="donation-step-1" class="py-24 bg-white donation-step">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Donasi untuk GCNI</h2>
+                        <p class="text-gray-600 text-lg max-w-2xl mx-auto">Mari berpartisipasi dalam membangun generasi Qur'ani yang berakhlak mulia.</p>
+                    </div>
+                    
+                    <div class="max-w-2xl mx-auto">
+                        <div class="consistent-box p-8">
+                            <div class="space-y-6">
+                                <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">Pilih Nominal Donasi</h3>
+                                
+                                <!-- Quick Amount Buttons -->
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    <button onclick="setAmount(50000, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Rp 50.000</span>
+                                    </button>
+                                    <button onclick="setAmount(100000, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Rp 100.000</span>
+                                    </button>
+                                    <button onclick="setAmount(250000, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Rp 250.000</span>
+                                    </button>
+                                    <button onclick="setAmount(500000, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Rp 500.000</span>
+                                    </button>
+                                    <button onclick="setAmount(1000000, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Rp 1.000.000</span>
+                                    </button>
+                                    <button onclick="setAmount(0, event)" class="donation-amount-btn p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all">
+                                        <span class="block text-lg font-semibold">Lainnya</span>
+                                    </button>
+                                </div>
+                                
+                                <!-- Custom Amount Input -->
+                                <div class="space-y-4">
+                                    <label for="donation-amount" class="block text-sm font-medium text-gray-700">Nominal Donasi</label>
+                                    <input type="number" id="donation-amount" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gcni-teal focus:border-transparent" placeholder="Masukkan nominal donasi" min="10000">
+                                </div>
+                                
+                                <!-- Donator Name -->
+                                <div class="space-y-4">
+                                    <label for="donator-name" class="block text-sm font-medium text-gray-700">Nama Donatur (Opsional)</label>
+                                    <input type="text" id="donator-name" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gcni-teal focus:border-transparent" placeholder="Nama Anda">
+                                </div>
+                                
+                                <button onclick="goToPayment()" class="w-full bg-gcni-teal text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition-all text-lg">
+                                    Lanjutkan ke Pembayaran
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donation Step 2: Choose Payment Method -->
+            <section id="donation-step-2" class="py-24 bg-white donation-step" style="display: none;">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Pilih Metode Pembayaran</h2>
+                        <p class="text-gray-600 text-lg">Pilih metode pembayaran yang paling mudah untuk Anda.</p>
+                    </div>
+                    
+                    <div class="max-w-2xl mx-auto">
+                        <div class="consistent-box p-8">
+                            <div class="space-y-4">
+                                <div class="text-center mb-6">
+                                    <p class="text-lg">Nominal Donasi: <span id="selected-amount" class="font-bold text-gcni-teal"></span></p>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <button onclick="showConfirmation('Transfer Bank')" class="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all text-left">
+                                        <div class="flex items-center space-x-4">
+                                            <i data-lucide="building" class="w-6 h-6 text-gcni-teal"></i>
+                                            <div>
+                                                <h3 class="font-semibold">Transfer Bank</h3>
+                                                <p class="text-sm text-gray-600">Transfer melalui rekening bank</p>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    
+                                    <button onclick="showConfirmation('QRIS')" class="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all text-left">
+                                        <div class="flex items-center space-x-4">
+                                            <i data-lucide="qr-code" class="w-6 h-6 text-gcni-teal"></i>
+                                            <div>
+                                                <h3 class="font-semibold">QRIS</h3>
+                                                <p class="text-sm text-gray-600">Scan QR Code dengan e-wallet</p>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    
+                                    <button onclick="showConfirmation('E-Wallet')" class="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-gcni-teal hover:bg-teal-50 transition-all text-left">
+                                        <div class="flex items-center space-x-4">
+                                            <i data-lucide="smartphone" class="w-6 h-6 text-gcni-teal"></i>
+                                            <div>
+                                                <h3 class="font-semibold">E-Wallet</h3>
+                                                <p class="text-sm text-gray-600">OVO, GoPay, Dana, ShopeePay</p>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                                
+                                <button onclick="backToAmount()" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-50 transition-all">
+                                    Kembali
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donation Step 3: Payment Instructions -->
+            <section id="donation-step-3" class="py-24 bg-white donation-step" style="display: none;">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Instruksi Pembayaran</h2>
+                        <p class="text-gray-600 text-lg">Silakan lakukan pembayaran sesuai instruksi di bawah ini.</p>
+                    </div>
+                    
+                    <div class="max-w-2xl mx-auto">
+                        <div class="consistent-box p-8">
+                            <div class="text-center space-y-6">
+                                <div class="p-4 bg-teal-50 rounded-lg">
+                                    <p class="text-lg">Total Donasi: <span id="final-amount" class="font-bold text-gcni-teal text-2xl"></span></p>
+                                </div>
+                                
+                                <div id="payment-instruction" class="text-center">
+                                    <!-- Payment instructions will be inserted here -->
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <button onclick="showSuccess()" class="w-full bg-gcni-teal text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition-all">
+                                        Konfirmasi Pembayaran
+                                    </button>
+                                    <button onclick="goToPayment(false)" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-50 transition-all">
+                                        Ubah Metode Pembayaran
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donation Step 4: Success -->
+            <section id="donation-step-4" class="py-24 bg-white donation-step" style="display: none;">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="consistent-box p-8 text-center">
+                                <div class="space-y-6">
+                                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                                        <i data-lucide="check" class="w-10 h-10 text-green-600"></i>
+                                    </div>
+                                    
+                                    <h2 class="text-3xl font-bold text-gray-800">Terima Kasih!</h2>
+                                    <p class="text-lg text-gray-600">Donasi Anda sangat berarti untuk kemajuan GCNI dan pembangunan generasi Qur'ani.</p>
+                                    
+                                    <div class="p-4 bg-gray-50 rounded-lg">
+                                        <p class="text-sm text-gray-600">Bukti donasi akan dikirim ke email Anda (jika tersedia)</p>
+                                    </div>
+                                    
+                                    <div class="space-y-4">
+                                        <button onclick="resetDonation()" class="w-full bg-gcni-teal text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:bg-teal-600 transition-all">
+                                            Donasi Lagi
+                                        </button>
+                                        <button onclick="showPage('page-beranda')" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-50 transition-all">
+                                            Kembali ke Beranda
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- PAGE: KONTAK -->
+        <div id="page-kontak" class="page-content">
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-gray-800">Hubungi Kami</h2>
+                        <p class="text-gray-500 mt-2">Kami siap melayani pertanyaan Anda.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <form action="#" method="POST" class="space-y-4">
+                                <div>
+                                    <label for="name" class="sr-only">Nama</label>
+                                    <input type="text" name="name" id="name" class="w-full rounded-lg border-gray-200 p-3 text-sm shadow-sm" placeholder="Nama Lengkap" />
+                                </div>
+                                <div>
+                                    <label for="email" class="sr-only">Email</label>
+                                    <input type="email" name="email" id="email" class="w-full rounded-lg border-gray-200 p-3 text-sm shadow-sm" placeholder="Alamat Email" />
+                                </div>
+                                <div>
+                                    <label for="message" class="sr-only">Pesan</label>
+                                    <textarea name="message" id="message" class="w-full rounded-lg border-gray-200 p-3 text-sm shadow-sm" placeholder="Pesan Anda" rows="6"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-gcni-teal text-white font-semibold p-3 rounded-lg shadow hover:bg-teal-600">
+                                    Kirim Pesan
+                                </button>
+                            </form>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-gcni-teal/10 text-gcni-teal p-3 rounded-lg">
+                                    <i data-lucide="map-pin"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Alamat Kantor Pusat</h3>
+                                    <p class="text-gray-600">Jl. Contoh Alamat No. 123, Jakarta, Indonesia</p>
+                                    <h3 class="font-semibold mt-2">Villa & Kampus IEBS</h3>
+                                    <p class="text-gray-600">Kawasan Pendidikan GCNI, Purwakarta, Indonesia</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-gcni-teal/10 text-gcni-teal p-3 rounded-lg">
+                                    <i data-lucide="phone"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Admin Yayasan (WhatsApp)</h3>
+                                    <p class="text-gray-600">+62 812 3456 7890</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-gcni-teal/10 text-gcni-teal p-3 rounded-lg">
+                                    <i data-lucide="mail"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Email</h3>
+                                    <p class="text-gray-600">info@gcni.online</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold">Yayasan GCNI</h3>
+                    <p class="mt-2 text-gray-400 text-sm">Membangun peradaban mulia melalui pendidikan, pemberdayaan, dan pelayanan umat yang profesional dan Islami.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Tautan Cepat</h3>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        <li><a href="#" onclick="showPage('page-tentang')" class="text-gray-400 hover:text-white">Tentang Kami</a></li>
+                        <li><a href="#" onclick="showPage('page-program')" class="text-gray-400 hover:text-white">Program</a></li>
+                        <li><a href="#" onclick="showPage('page-berita')" class="text-gray-400 hover:text-white">Berita</a></li>
+                        <li><a href="#" onclick="showPage('page-donasi')" class="text-gray-400 hover:text-white">Donasi</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="text-lg font-semibold">Ikuti Kami</h3>
+                    <div class="flex space-x-4 mt-2">
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; 2025 Yayasan Global Cahaya Nurbuwwah Insani. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Initialize Lucide Icons ---
+        lucide.createIcons();
+
+        // --- Global variables for donation flow ---
+        let donationAmount = 0;
+        let donatorName = '';
+
+        // --- Page Navigation Logic ---
+        const pages = document.querySelectorAll('.page-content');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function showPage(pageId) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            // Show the selected page
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.style.display = 'block';
+            }
+
+            // Reset donation flow if navigating to the donation page
+            if (pageId === 'page-donasi') {
+                resetDonation();
+            }
+
+            // Update active link style
+            navLinks.forEach(link => {
+                const onclickAttr = link.getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes(`'${pageId}'`)) {
+                    link.classList.add('text-gcni-teal');
+                    link.classList.remove('text-gray-600');
+                } else {
+                    link.classList.remove('text-gcni-teal');
+                    link.classList.add('text-gray-600');
+                }
+            });
+
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
+
+            // Hide mobile menu after click
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        
+        // --- Donation Flow Logic ---
+        function setAmount(amount, event) {
+            const input = document.getElementById('donation-amount');
+            if (amount === 0) {
+                input.value = '';
+                input.focus();
+            } else {
+                input.value = amount;
+            }
+            
+            // Update button styles
+            document.querySelectorAll('.donation-amount-btn').forEach(btn => {
+                btn.classList.remove('border-gcni-teal', 'bg-teal-50');
+                btn.classList.add('border-gray-200');
+            });
+            
+            if (amount !== 0 && event && event.currentTarget) {
+                event.currentTarget.classList.add('border-gcni-teal', 'bg-teal-50');
+                event.currentTarget.classList.remove('border-gray-200');
+            }
+        }
+
+        function goToPayment(reset = true) {
+            const amountInput = document.getElementById('donation-amount');
+            if (reset) {
+                if (!amountInput.value || amountInput.value < 10000) {
+                    alert('Mohon masukkan jumlah donasi minimal Rp 10.000');
+                    return;
+                }
+                donationAmount = parseInt(amountInput.value);
+                donatorName = document.getElementById('donator-name').value || 'Hamba Allah';
+            }
+            
+            document.getElementById('selected-amount').innerText = `Rp ${donationAmount.toLocaleString('id-ID')}`;
+            document.getElementById('donation-step-1').style.display = 'none';
+            document.getElementById('donation-step-3').style.display = 'none';
+            document.getElementById('donation-step-4').style.display = 'none';
+            document.getElementById('donation-step-2').style.display = 'block';
+        }
+        
+        function backToAmount() {
+            document.getElementById('donation-step-2').style.display = 'none';
+            document.getElementById('donation-step-1').style.display = 'block';
+        }
+
+        function showConfirmation(paymentMethod) {
+            const finalAmountEl = document.getElementById('final-amount');
+            const instructionEl = document.getElementById('payment-instruction');
+            
+            finalAmountEl.innerText = `Rp ${donationAmount.toLocaleString('id-ID')}`;
+            
+            let instructionHTML = '';
+            if (paymentMethod === 'Transfer Bank') {
+                instructionHTML = `
+                    <div class="space-y-4">
+                        <p class="text-sm">Silakan transfer ke salah satu rekening berikut:</p>
+                        <div class="bg-gray-50 border rounded-lg p-4 text-left">
+                            <p class="font-bold text-gcni-teal">Bank Syariah Indonesia (BSI)</p>
+                            <p class="font-mono text-lg">1234567890</p>
+                            <p class="text-sm text-gray-600">a.n. Yayasan GCNI</p>
+                        </div>
+                        <div class="bg-gray-50 border rounded-lg p-4 text-left">
+                            <p class="font-bold text-gcni-teal">Bank Mandiri Syariah</p>
+                            <p class="font-mono text-lg">9876543210</p>
+                            <p class="text-sm text-gray-600">a.n. Yayasan GCNI</p>
+                        </div>
+                    </div>
+                `;
+            } else if (paymentMethod === 'QRIS') {
+                instructionHTML = `
+                    <div class="space-y-4">
+                        <p class="text-sm">Silakan pindai kode QRIS di bawah ini dengan aplikasi e-wallet Anda.</p>
+                        <div class="bg-gray-50 border rounded-lg p-4">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Donasi GCNI Rp${donationAmount}" alt="QRIS Code" class="mx-auto w-48 h-48 rounded-lg shadow-md">
+                        </div>
+                        <p class="text-xs text-gray-500">*QR Code ini hanya contoh untuk demo</p>
+                    </div>
+                `;
+            } else if (paymentMethod === 'E-Wallet') {
+                instructionHTML = `
+                    <div class="space-y-4">
+                        <p class="text-sm">Pilih e-wallet favorit Anda:</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 border rounded-lg p-4 hover:bg-teal-50 cursor-pointer">
+                                <p class="font-semibold">GoPay</p>
+                                <p class="text-sm text-gray-600">0812-3456-7890</p>
+                            </div>
+                            <div class="bg-gray-50 border rounded-lg p-4 hover:bg-teal-50 cursor-pointer">
+                                <p class="font-semibold">OVO</p>
+                                <p class="text-sm text-gray-600">0812-3456-7890</p>
+                            </div>
+                            <div class="bg-gray-50 border rounded-lg p-4 hover:bg-teal-50 cursor-pointer">
+                                <p class="font-semibold">DANA</p>
+                                <p class="text-sm text-gray-600">0812-3456-7890</p>
+                            </div>
+                            <div class="bg-gray-50 border rounded-lg p-4 hover:bg-teal-50 cursor-pointer">
+                                <p class="font-semibold">ShopeePay</p>
+                                <p class="text-sm text-gray-600">0812-3456-7890</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            instructionEl.innerHTML = instructionHTML;
+
+            document.getElementById('donation-step-2').style.display = 'none';
+            document.getElementById('donation-step-3').style.display = 'block';
+        }
+
+        function showSuccess() {
+            document.getElementById('donation-step-3').style.display = 'none';
+            document.getElementById('donation-step-4').style.display = 'block';
+        }
+        
+        function resetDonation() {
+            // Reset variables
+            donationAmount = 0;
+            donatorName = '';
+
+            // Reset form fields
+            const amountInput = document.getElementById('donation-amount');
+            const nameInput = document.getElementById('donator-name');
+            if (amountInput) amountInput.value = '';
+            if (nameInput) nameInput.value = '';
+            
+            document.querySelectorAll('.donation-amount-btn').forEach(btn => {
+                btn.classList.remove('border-gcni-teal', 'bg-teal-50');
+                btn.classList.add('border-gray-200');
+            });
+            
+            // Hide all but the first step
+            document.getElementById('donation-step-1').style.display = 'block';
+            document.getElementById('donation-step-2').style.display = 'none';
+            document.getElementById('donation-step-3').style.display = 'none';
+            document.getElementById('donation-step-4').style.display = 'none';
+        }
+
+        // --- Event Listeners and Initial Setup ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial page
+            showPage('page-beranda');
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Image error handling
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', () => {
+                    const parent = img.parentElement;
+                    parent.innerHTML = `<div class='image-placeholder w-full h-full'><i data-lucide='image-off' class='w-12 h-12'></i></div>`;
+                    lucide.createIcons(); // Re-render icons for the placeholder
+                });
+            });
+        });
+
+        // --- Enhanced Image Slider with indicators ---
+        const sliderImages = document.querySelectorAll('.slider-image');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        let currentImageIndex = 0;
+        
+        function goToSlide(index) {
+            if (sliderImages.length === 0) return;
+            
+            // Hide current image and update dot
+            sliderImages[currentImageIndex].classList.remove('opacity-100');
+            sliderImages[currentImageIndex].classList.add('opacity-0');
+            sliderDots[currentImageIndex].classList.remove('opacity-70');
+            sliderDots[currentImageIndex].classList.add('opacity-40');
+            
+            // Show new image and update dot
+            currentImageIndex = index;
+            sliderImages[currentImageIndex].classList.remove('opacity-0');
+            sliderImages[currentImageIndex].classList.add('opacity-100');
+            sliderDots[currentImageIndex].classList.remove('opacity-40');
+            sliderDots[currentImageIndex].classList.add('opacity-70');
+        }
+        
+        // Auto-advance slider
+        if (sliderImages.length > 0) {
+            setInterval(() => {
+                const nextIndex = (currentImageIndex + 1) % sliderImages.length;
+                goToSlide(nextIndex);
+            }, 5000); // Change image every 5 seconds
+        }
+
+        // --- Header scroll effect ---
+        const header = document.getElementById('header');
+        window.onscroll = function() {
+            if (window.pageYOffset > 50) {
+                header.classList.add('h-16');
+                header.classList.remove('h-20');
+            } else {
+                header.classList.remove('h-16');
+                header.classList.add('h-20');
+            }
+        };
+    </script>
+</body>
+</html>
